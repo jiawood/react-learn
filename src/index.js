@@ -8,7 +8,11 @@ function useState(initialValue) {
   memoizedState[cursor] = memoizedState[cursor] || initialValue;
   const currentCursor = cursor;
   function setState(newState) {
-    memoizedState[currentCursor] = newState;
+    if(newState instanceof Function){
+      memoizedState[currentCursor] = newState(memoizedState[currentCursor])
+    }else{
+      memoizedState[currentCursor] = newState;
+    }
     render();
   }
   return [memoizedState[cursor++], setState]; // 返回当前 state，并把 cursor 加 1
@@ -30,6 +34,19 @@ function useEffect(callback, depArray) {
 function App() {
   const [count, setCount] = useState(0);
   const [username, setUsername] = useState("fan");
+  const [flag, setFlag] = useState(false);
+  const flagRef = React.useRef(flag)
+  flagRef.current = flag 
+  let timer;
+
+  function handleTimerClick() {
+    setFlag(!flagRef.current);
+    setFlag(!flagRef.current)
+    timer = setTimeout(() => {
+      setFlag(!flagRef.current);
+    }, 2000);
+  }
+
   useEffect(() => {
     console.log(count);
   }, [count]);
@@ -54,6 +71,7 @@ function App() {
       >
         点击
       </button>
+      <button onClick={handleTimerClick}>{flag ? 'true' : 'false'}</button>
     </div>
   );
 }
@@ -62,6 +80,6 @@ const rootElement = document.getElementById("root");
 
 function render() {
   cursor = 0;
-  ReactDOM.render(<React.StrictMode><App /></React.StrictMode>, rootElement);
+  ReactDOM.render(<App />, rootElement);
 }
 render();
