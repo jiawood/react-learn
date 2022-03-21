@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import TextRef from "./testRef";
+import TextAsync from './testAsync'
 
 let memoizedState = []; // hooks 存放在这个数组
 let cursor = 0; // 当前 memoizedState 下标
@@ -74,7 +75,7 @@ function App() {
       </button>
       <button onClick={handleTimerClick}>{flag ? 'true' : 'false'}</button>
       <br></br>
-      <TextRef></TextRef>
+      <TextAsync></TextAsync>
     </div>
   );
 }
