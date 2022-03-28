@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import TextRef from "./testRef";
 import TextAsync from './testAsync'
+import TextUseCallback from './testUseCallback'
 
 let memoizedState = []; // hooks 存放在这个数组
 let cursor = 0; // 当前 memoizedState 下标
@@ -49,12 +50,12 @@ function App() {
     }, 2000);
   }
 
-  useEffect(() => {
-    console.log(count);
-  }, [count]);
-  useEffect(() => {
-    console.log(username);
-  }, [username]);
+  // useEffect(() => {
+  //   console.log(count);
+  // }, [count]);
+  // useEffect(() => {
+  //   console.log(username);
+  // }, [username]);
   return (
     <div>
       <div>{count}</div>
@@ -75,7 +76,8 @@ function App() {
       </button>
       <button onClick={handleTimerClick}>{flag ? 'true' : 'false'}</button>
       <br></br>
-      <TextAsync></TextAsync>
+      {/* <TextAsync></TextAsync> */}
+      <TextUseCallback></TextUseCallback>
     </div>
   );
 }
